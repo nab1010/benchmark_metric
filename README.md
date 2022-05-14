@@ -5,7 +5,10 @@
 
 ```
 ├── example
-│   └── predict_example.json
+├── example
+│   ├── json
+│   │   └── predict_example.json
+│   └── txt
 ├── gitPush.sh
 ├── ObjectDetection
 │   └── benchmark.py
