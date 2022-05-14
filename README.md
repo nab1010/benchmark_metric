@@ -16,4 +16,11 @@
 
 benchmark_metric
 
-
+### TO DO
+- [ ] Calculate IOU
+- [ ] Calculate Precision
+- [ ] Calculate Recall
+- [ ] Calculate AP
+- [ ] Calculate mAP
+- [ ] Calculate FFPI
+- [ ] Calculate MR
