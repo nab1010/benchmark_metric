@@ -4,7 +4,7 @@
 
 
 ```
-├── example
+
 ├── example
 │   ├── json
 │   │   └── predict_example.json
