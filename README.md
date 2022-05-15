@@ -70,9 +70,11 @@ frame class bbox_x bbox_y bbox_w bbox_h
 | `-iou`,`--iou` | calculate IOU - Intersection Over Union | cal_IOU | Flase | 
 | `-precision`,`--precision` | calculate Precision | cal_Precision | Flase | 
 | `-recall`,`--recall` | calculate Recall | cal_Recall | False | 
-| `-h`,`--help` | show this help message and exit |  |  | 
-| `-h`,`--help` | show this help message and exit |  |  | 
-| `-h`,`--help` | show this help message and exit |  |  | 
+| `-ap`,`--ap` | calculate Average Precision | cal_AP | False | 
+| `-map`,`--map` | calculate mean Average Precision | cal_mAP | False | 
+| `-ffpi`,`--ffpi` | calculate False Positive Per Image | cal_FFPI | False | 
+| `-mr`,`--mr` | calculate Miss Rate | cal_MR | False | 
+| `-graph`,`--graph` | draw graph | draw_graph | False | 
 
 
 
