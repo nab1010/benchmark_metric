@@ -20,19 +20,19 @@ def parser():
                         help="type ground truth file")
     parser.add_argument("--type_gt_file", type=int, default=5,
                         help="type prediction file")
-    parser.add_argument("--iou", default=True,
+    parser.add_argument("--iou", default=False,
                         help="calculate IOU - Intersection Over Union")
-    parser.add_argument("--precision", default=True,
+    parser.add_argument("--precision", default=False,
                         help="calculate Precision")
-    parser.add_argument("--recall", default=True,
+    parser.add_argument("--recall", default=False,
                         help="calculate Recall")
-    parser.add_argument("--ap", default=True,
+    parser.add_argument("--ap", default=False,
                         help="calculate Average Precision")
-    parser.add_argument("--map", default=True,
+    parser.add_argument("--map", default=False,
                         help="calculate mean Average Precision")
-    parser.add_argument("--ffpi", default=True,
+    parser.add_argument("--ffpi", default=False,
                         help="calculate False Positive Per Image")
-    parser.add_argument("--mr", default=True,
+    parser.add_argument("--mr", default=False,
                         help="calculate Miss Rate")
     parser.add_argument("--graph", default=True,
                         help="draw graph")
@@ -83,5 +83,5 @@ if __name__ == '__main__':
 
 
 
-
+1
 
