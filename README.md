@@ -1,23 +1,8 @@
 # Benchmark Metric Object Detection Models
 
-**@nabang1010**
-
-**SANSlab**
+**@nabang1010 - SANSlab**
 
 
-```
-
-├── example
-│   ├── json
-│   │   └── predict_example.json
-│   └── txt
-├── gitPush.sh
-├── ObjectDetection
-│   └── benchmark.py
-├── README.md
-├── README_metric_benchmark.pdf
-└── requirements.txt
-```
 
 # Format Image performance metric
 
