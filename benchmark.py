@@ -34,7 +34,7 @@ def parser():
                         help="calculate False Positive Per Image")
     parser.add_argument("--mr", default=False,
                         help="calculate Miss Rate")
-    parser.add_argument("--graph", default=True,
+    parser.add_argument("--graph", default=False,
                         help="draw graph")
     return parser.parse_args()
 
