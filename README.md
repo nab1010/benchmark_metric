@@ -4,7 +4,7 @@
 
 
 
-# Format Image performance metric
+## Format Image performance metric
 
 ```
 ├── prediction
@@ -35,7 +35,7 @@ class bbox_x bbox_y bbox_w bbox_h
 0 0.277865 0.756019 0.054688 0.219444
 
 ```
-# Format Video performance metric
+## Format Video performance metric
 
 ```
 predict file vid_1.txt:
@@ -58,7 +58,14 @@ frame class bbox_x bbox_y bbox_w bbox_h
 
 ```
 
-benchmark_metric
+## Guide
+
+|Argument|Description|Dest|Default|
+| ------ | --------- | -- | ----- | 
+| `-h`,`--help` | show this help message and exit |  |  | 
+
+
+
 
 ### TO DO:
 - [ ] Build 
