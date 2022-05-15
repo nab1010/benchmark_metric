@@ -75,7 +75,8 @@ frame class bbox_x bbox_y bbox_w bbox_h
 
 benchmark_metric
 
-### TO DO8
+### TO DO:
+- [ ] Build 
 - [ ] Calculate IOU
 - [ ] Calculate Precision
 - [ ] Calculate Recall
