@@ -1,12 +1,4 @@
 
-
-
-
-
-
-
-
-
 import argparse
 
 
@@ -88,7 +80,7 @@ def cal_MR():
     return 0
 
 
-
+# def load
 
 
 
