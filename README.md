@@ -58,7 +58,7 @@ frame class bbox_x bbox_y bbox_w bbox_h
 
 ```
 
-## Guide
+## Usage
 
 |Argument|Description|Dest|Default|
 | ------ | --------- | -- | ----- | 
