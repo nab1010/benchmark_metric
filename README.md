@@ -22,12 +22,33 @@
 # Format Image performance metric
 
 ```
+├── prediction
+│   ├── image_1.txt
+│   ├── image_2.txt
+│   └── image_3.txt
+└── gt
+    ├── image_1.txt
+    ├── image_2.txt
+    └── image_3.txt
+
+
+```
+
+```
 predict file image_1.txt:
 
 class conf bbox_x bbox_y bbox_w bbox_h
 
 0 0.94 0.133594 0.861574 0.076563 0.243519
 0 0.99 0.277865 0.756019 0.054688 0.219444
+
+
+ground truth file  image_1.txt
+
+class bbox_x bbox_y bbox_w bbox_h
+
+0 0.133594 0.861574 0.076563 0.243519
+0 0.277865 0.756019 0.054688 0.219444
 
 ```
 # Format Video performance metric
