@@ -18,7 +18,7 @@ def parser():
                         default="",
                         help="prediction folder path")
     parser.add_argument("-gt","--gt_path", 
-                        dest="-gt_path",
+                        dest="gt_path",
                         type=str, 
                         default="",
                         help="ground truth folder path")

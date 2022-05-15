@@ -63,6 +63,16 @@ frame class bbox_x bbox_y bbox_w bbox_h
 |Argument|Description|Dest|Default|
 | ------ | --------- | -- | ----- | 
 | `-h`,`--help` | show this help message and exit |  |  | 
+| `-pred`,`--pred_path` | prediciton folder path | pred_path |  | 
+| `-gt`,`--gt_path` | ground truth folder path | gt_path |  | 
+| `-pred_format`,`--pred_format` | prediction format (txt, json, xml) | pred_format |  | 
+| `-gt_format`,`--gt_format` | gt format (txt, json, xml) | gt_format |  | 
+| `-iou`,`--iou` | calculate IOU - Intersection Over Union | cal_IOU | Flase | 
+| `-precision`,`--precision` | calculate Precision | cal_Precision | Flase | 
+| `-recall`,`--recall` | calculate Recall | cal_Recall | False | 
+| `-h`,`--help` | show this help message and exit |  |  | 
+| `-h`,`--help` | show this help message and exit |  |  | 
+| `-h`,`--help` | show this help message and exit |  |  | 
 
 
 
