@@ -80,7 +80,9 @@ def cal_MR():
     return 0
 
 
-# def load
+def loadTXTFile(args):
+    
+
 
 
 
