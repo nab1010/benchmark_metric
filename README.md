@@ -89,7 +89,7 @@ frame class top left width height
 
 ### TO DO:
 - [ ] Build 
-- [ ] Calculate IOU
+<!-- - [ ] Calculate IOU -->
 - [ ] Calculate Precision
 - [ ] Calculate Recall
 - [ ] Calculate AP
