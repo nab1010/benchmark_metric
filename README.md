@@ -77,7 +77,15 @@ frame class top left width height
 | `-graph`,`--graph` | draw graph | draw_graph | False | 
 
 
+## Metric
 
+### Precision
+
+`precision = TP/(TP+FP)`
+
+* `TP`: True Positive - Correct detection of the model
+* `FP`: False Positive - Incorrect detection of the model
+  
 
 ### TO DO:
 - [ ] Build 

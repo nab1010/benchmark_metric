@@ -1,11 +1,9 @@
+import glob, os
+import cv2
 
 
 
-
-
-
-def convert2original(image, bbox):
-    x, y, w, h = convert2relative(bbox)
+def convert2original(image, x, y, w, h):
 
     image_h, image_w, __ = image.shape
 
@@ -22,8 +20,27 @@ def convert2original(image, bbox):
 
 
 def main():
-    gt_path = "/home/nab/Desktop/Benchmark_Metric_Object_Detection/example/gt"
-    
+    gtPath = "/home/nab/Desktop/Benchmark_Metric_Object_Detection/example/gt"
+    annoPath = "/home/nab/Desktop/Benchmark_Metric_Object_Detection/anno"
+    os.chdir(annoPath)
+    for file in glob.glob("*.txt"):
+        print(file[0:9])
+        gtFilePath = gtPath + '/' + file
+        annoFilePath = annoPath + '/' + file
+        imageFilePath = annoPath + '/' + file[0:9] + ".jpg"
+        image = cv2.imread(imageFilePath)
+        gtFile =  open(gtFilePath, 'w')
+        annoData  = open(annoFilePath, 'r')
+        lines = annoData.read().splitlines()
+        for line in lines:
+            classId, bbox_x, bbox_y, bbox_w, bbox_h = line.split(' ')
+            x, y, w, h = convert2original(image, float(bbox_x), float(bbox_y), float(bbox_w), float(bbox_h))
+            newLine = classId + ' ' + str(int(x - w / 2.)) + " " + str(int(y - h / 2.)) + " " + str(w) + " " + str(h) + "\n"
+            # print(newLine)
+            gtFile.write(newLine)
+    gtFile.close()    
+
+
 
 
 

@@ -60,8 +60,23 @@ def parser():
 
 
 
-def cal_IOU():
-    return 0
+# def cal_IOU(boxGt, boxPred):
+#     float I = cal_box_intersection(boxGt, boxPred)
+#     float U = cal_box_union(boxGt, boxPred)
+#     if ((I == 0) or (U == 0)):
+#         return 0
+#     else:
+#         return I/U
+         
+# def cal_box_intersection(boxA, boxB):
+#     return 0
+
+# def cal_box_union():
+#     return 0
+
+
+
+
 
 
 def cal_Precision():
@@ -82,7 +97,7 @@ def cal_MR():
 
 def loadTXTFile(args):
     
-
+    return 0
 
 
 
@@ -93,7 +108,7 @@ def loadTXTFile(args):
 
 def main():
     args = parser()
-    print(args)
+    print(args.pred_path)
     
     
     return 0
