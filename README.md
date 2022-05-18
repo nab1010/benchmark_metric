@@ -86,7 +86,12 @@ frame class top left width height
 * `TP`: True Positive - Correct detection of the model
 * `FP`: False Positive - Incorrect detection of the model
   
+### Recall
 
+`recall = TP/(TP+FN)` 
+
+* `TP`: True Positive - Correct detection of the model
+* `FN`: False Negative - Ground truth not detected 
 ### TO DO:
 - [ ] Build 
 <!-- - [ ] Calculate IOU -->
