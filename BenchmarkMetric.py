@@ -1,6 +1,6 @@
 
 import argparse
-
+import glob, os
 
 def parser():
     parser = argparse.ArgumentParser(description="Benchmark Metric Object Detection")
@@ -95,10 +95,24 @@ def cal_MR():
     return 0
 
 
-def loadTXTFile(args):
-    
-    return 0
+def loadPredFile(args):
+    os.chdir (args.pred_path)
+    fileFormat = "*." + args.pred_format 
+    files =  glob.glob(fileFormat)
+    return files
 
+def loadGtFile(args):
+    os.chdir (args.gt_path)
+    fileFormat = "*." + args.gt_format 
+    files =  glob.glob(fileFormat)
+    return files
+
+def readTXTFile(file):
+    TXTFileData = open(file, 'r')
+    lines = TXTFileData.read().splitlines()
+    return lines
+
+# def readTXTFile(args):
 
 
 
@@ -109,6 +123,13 @@ def loadTXTFile(args):
 def main():
     args = parser()
     print(args.pred_path)
+    listPredFiles = loadPredFile(args)
+    listGtFiles = loadGtFile(args)
+    for file in listPredFiles:
+        lines = readTXTFile(file)
+        print(lines)
+    # print(listPredFiles)
+    # print(listGtFiles)
     
     
     return 0
