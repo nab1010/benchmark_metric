@@ -21,15 +21,15 @@
 ```
 predict file image_1.txt:
 
-class conf top left width height
+<class> <conf> <top> <left> <width> <height>
 
 0 0.94 821 169 26 53
 0 0.99 794 172 25 57
-
+___________________________________________________
 
 ground truth file  image_1.txt
 
-class top left width height
+<class> <top> <left> <width> <height>
 
 0 1039 98 17 38
 0 758 176 29 56
@@ -40,21 +40,21 @@ class top left width height
 ```
 predict file vid_1.txt:
 
-frame class conf top left width height
+<frame> <class> <conf> <top> <left> <width> <height>
 
-1 0 0.94 0.133594 0.861574 0.076563 0.243519
-1 0 0.99 0.277865 0.756019 0.054688 0.219444
-2 0 0.96 0.541667 0.431481 0.066667 0.118519
-2 0 0.94 0.666146 0.526389 0.101042 0.150926
+1 0 0.94 781 143 25 57
+1 0 0.99 1127 457 57 146
+2 0 0.96 950 252 217 126
+2 0 0.94 538 608 98 217
 
 ground truth file vid1_txt:
 
-frame class top left width height
+<frame> <class> <top> <left> <width> <height>
 
-1 0 0.133594 0.861574 0.076563 0.243519
-1 0 0.277865 0.756019 0.054688 0.219444
-2 0 0.541667 0.431481 0.066667 0.118519
-2 0 0.666146 0.526389 0.101042 0.150926
+1 0 1064 117 21 47
+1 0 704 379 62 133
+2 0 975 690 280 383
+2 0 538 608 98 217
 
 ```
 

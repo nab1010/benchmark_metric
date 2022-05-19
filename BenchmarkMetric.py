@@ -1,6 +1,7 @@
 
 import argparse
 import glob, os
+from pydoc import classname
 
 def parser():
     parser = argparse.ArgumentParser(description="Benchmark Metric Object Detection")
@@ -74,13 +75,55 @@ def parser():
 # def cal_box_union():
 #     return 0
 
+class bboxPred:
+    def __init__(self, idBbox, className, conf, top, left, width, height):
+        self.idBbox = idBbox
+        self.className = className
+        self.conf = conf
+        self.top = top
+        self.left = left
+        self.width = width
+        self.height = height
+
+
+def checkSameClass(bboxPred, bboxGt):
+    classNameBboxPred = bboxPred.split(' ')[0]
+    classNameBboxGt = bboxGt.split(' ')[0]
+    if classNameBboxPred == classNameBboxGt:
+        return 1
+    else:
+        return 0
+    
+
+
+
+def cal_Precision(args):
+    listGtFiles = loadGtFile(args)
+    listPredFiles = loadPredFile(args)
+
+    for filePred in listPredFiles:
+        listLinesPred = readTXTFile(filePred)
+        for linePred in listLinesPred:
+            print(linePred)
 
 
 
 
+    for fileGt in listGtFiles:
+        listLinesGt = readTXTFile(fileGt)
+        for lineGt in listLinesGt:
+            print(lineGt)
 
-def cal_Precision():
+
+            
+    for linePred in listLinesPred:
+        for lineGt in listLinesGt:
+            print(linePred, ' - ', lineGt)
+            checkSameClass(linePred, lineGt)
+
+
     return 0
+
 
 
 def cal_Recall():
@@ -94,25 +137,25 @@ def cal_FFPI():
 def cal_MR():
     return 0
 
+def checkPredPath(args):
+    return 0
+
+
 
 def loadPredFile(args):
-    os.chdir (args.pred_path)
-    fileFormat = "*." + args.pred_format 
-    files =  glob.glob(fileFormat)
+    filePath = args.pred_path + "/*."  + args.pred_format 
+    files =  glob.glob(filePath)
     return files
 
 def loadGtFile(args):
-    os.chdir (args.gt_path)
-    fileFormat = "*." + args.gt_format 
-    files =  glob.glob(fileFormat)
+    filePath = args.gt_path + "/*." + args.gt_format 
+    files =  glob.glob(filePath)
     return files
 
 def readTXTFile(file):
     TXTFileData = open(file, 'r')
     lines = TXTFileData.read().splitlines()
     return lines
-
-# def readTXTFile(args):
 
 
 
@@ -122,12 +165,10 @@ def readTXTFile(file):
 
 def main():
     args = parser()
-    print(args.pred_path)
-    listPredFiles = loadPredFile(args)
-    listGtFiles = loadGtFile(args)
-    for file in listPredFiles:
-        lines = readTXTFile(file)
-        print(lines)
+    if args.cal_Precision:
+        cal_Precision(args)
+    # print(args.pred_path)
+    
     # print(listPredFiles)
     # print(listGtFiles)
     
