@@ -1,7 +1,7 @@
 
 import argparse
 import glob, os
-from pydoc import classname
+import sys
 
 def parser():
     parser = argparse.ArgumentParser(description="Benchmark Metric Object Detection")
@@ -123,7 +123,7 @@ def cal_Precision(args):
             
     for linePred in listLinesPred:
         for lineGt in listLinesGt:
-            print(linePred, ' - ', lineGt)
+            # print(linePred, ' - ', lineGt)
             checkSameClass(linePred, lineGt)
             
 
@@ -143,8 +143,24 @@ def cal_FFPI():
 def cal_MR():
     return 0
 
-def checkPredPath(args):
-    return 0
+def checkPath(args):
+    if not os.path.exists(args.pred_path) and not os.path.exists(args.gt_path):
+        errorMessage = "[ERROR]: Folder prediction: " + args.gt_path + " and folder gt: "  + args.gt_path +  " not exist"
+        sys.exit(errorMessage)
+    elif not os.path.exists(args.pred_path):
+        errorMessage = "[ERROR]: Folder prediction: " + args.pred_path + " not exist"
+        sys.exit(errorMessage)
+    elif not os.path.exists(args.gt_path):
+        errorMessage = "[ERROR]: Folder gt: " + args.gt_path + " not exist"
+        sys.exit(errorMessage)
+
+def checkFormat(args):
+    listFormat = ["txt", "xml ", "json"]
+    for typeFormat in listFormat:
+        if args.pred_format != 
+
+    
+
 
 
 
@@ -171,6 +187,8 @@ def readTXTFile(file):
 
 def main():
     args = parser()
+    checkPath(args)
+    checkFormat(args)
     if args.cal_Precision:
         cal_Precision(args)
     # print(args.pred_path)
