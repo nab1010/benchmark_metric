@@ -156,8 +156,10 @@ def checkPath(args):
 
 def checkFormat(args):
     listFormat = ["txt", "xml ", "json"]
+    checkPredFormat = False
     for typeFormat in listFormat:
-        if args.pred_format != 
+        if args.pred_format == "txt" or args.pred_format == "xml" or args.pred_format == "json":
+            checkPredFormat = True
 
     
 
