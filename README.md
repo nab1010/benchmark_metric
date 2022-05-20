@@ -3,6 +3,20 @@
 ### @nabang1010 - SANSlab
 
 
+```
+    0,0 ------> x (width)
+     |
+     |  (Left,Top)
+     |      *_________
+     |      |         |
+            |         |
+     y      |_________|
+  (height)            *
+                (Right,Bottom)
+```
+
+
+
 
 ## Format Image performance metric
 
