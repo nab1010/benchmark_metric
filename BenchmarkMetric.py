@@ -95,6 +95,11 @@ def checkSameClass(bboxPred, bboxGt):
         return 0
     
 
+# def checkOverLap(bboxA, bboxB):
+#     topA, leftA, widthA, heightA = bboxA.split(' '):
+#     topB, leftB, widthB, heightB = bboxB.split(' '):
+
+
 
 
 def cal_Precision(args):
@@ -120,6 +125,7 @@ def cal_Precision(args):
         for lineGt in listLinesGt:
             print(linePred, ' - ', lineGt)
             checkSameClass(linePred, lineGt)
+            
 
 
     return 0
