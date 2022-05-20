@@ -109,9 +109,8 @@ ground truth file vid1_txt:
 * `TP`: True Positive - Correct detection of the model
 * `FN`: False Negative - Ground truth not detected 
 ### TO DO:
-- [ ] Build 
-<!-- - [ ] Calculate IOU -->
-- [ ] Calculate Precision
+
+- [ ] **Calculate Precision**  --Pending--
 - [ ] Calculate Recall
 - [ ] Calculate AP
 - [ ] Calculate mAP
