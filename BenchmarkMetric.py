@@ -109,6 +109,21 @@ class bboxGt:
         self.width = float(width)
         self.height = float(height)
 
+class classData:
+    
+    def __init__(self):
+        self.TP = 0
+        self.FP = 0
+        self.FN = 0
+
+    def TP_up(self):
+        self.TP += 1
+    
+    def FP_up(self):
+        self.FP += 1
+    
+    def FN_up(self):
+        self.FN += 1
 
 
 def check_same_class(bboxA, bboxB):
