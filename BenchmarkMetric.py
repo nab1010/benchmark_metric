@@ -2,7 +2,7 @@
 import argparse
 import glob, os
 import sys
-from turtle import right
+
 
 def parser():
     parser = argparse.ArgumentParser(description="Benchmark Metric Object Detection")

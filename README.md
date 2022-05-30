@@ -95,6 +95,8 @@ ground truth file vid1_txt:
 
 ## Metric
 
+`IoU --> TP, FP, FN --> Prec, Recall --> AP --> mAP` 
+
 ### Precision
 
 `precision = TP/(TP+FP)`
@@ -103,7 +105,6 @@ ground truth file vid1_txt:
 * `FP`: False Positive - Incorrect detection of the model
 
 
-`IoU --> TP, FP, FN --> Prec, Recall --> AP --> mAP` 
 
 
   
