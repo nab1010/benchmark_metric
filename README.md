@@ -101,6 +101,11 @@ ground truth file vid1_txt:
 
 * `TP`: True Positive - Correct detection of the model
 * `FP`: False Positive - Incorrect detection of the model
+
+
+`IoU --> TP, FP, FN --> Prec, Recall --> AP --> mAP` 
+
+
   
 ### Recall
 

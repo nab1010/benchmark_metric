@@ -2,6 +2,7 @@
 import argparse
 import glob, os
 import sys
+from turtle import right
 
 def parser():
     parser = argparse.ArgumentParser(description="Benchmark Metric Object Detection")
@@ -59,72 +60,137 @@ def parser():
                         help="draw graph")
     return parser.parse_args()
 
+def checkPath(args):
+    if not os.path.exists(args.pred_path) and not os.path.exists(args.gt_path):
+        errorMessage = "[ERROR]: Folder prediction: " + args.gt_path + " and folder gt: "  + args.gt_path +  " not exist"
+        sys.exit(errorMessage)
+    elif not os.path.exists(args.pred_path):
+        errorMessage = "[ERROR]: Folder prediction: " + args.pred_path + " not exist"
+        sys.exit(errorMessage)
+    elif not os.path.exists(args.gt_path):
+        errorMessage = "[ERROR]: Folder ground truth: " + args.gt_path + " not exist"
+        sys.exit(errorMessage)
+
+def checkFormat(args):
+    listFormat = ["txt", "xml ", "json"]
+    checkPredFormat = False
+    for typeFormat in listFormat:
+        if args.pred_format == typeFormat:
+            checkPredFormat = True
+    if not checkPredFormat:
+        errorMessage = "Format prediciton [" + args.pred_format + "] not suport"
+        sys.exit(errorMessage)
+    checkGtFormat = False
+    for typeFormat in listFormat:
+        if args.gt_format == typeFormat:
+            checkGtFormat = True
+    if not checkGtFormat:
+        errorMessage = "Format ground truth [" + args.gt_format + "] not suport"
+        sys.exit(errorMessage)
 
 
-# def cal_IOU(boxGt, boxPred):
-#     float I = cal_box_intersection(boxGt, boxPred)
-#     float U = cal_box_union(boxGt, boxPred)
-#     if ((I == 0) or (U == 0)):
-#         return 0
-#     else:
-#         return I/U
-         
-# def cal_box_intersection(boxA, boxB):
-#     return 0
-
-# def cal_box_union():
-#     return 0
 
 class bboxPred:
-    def __init__(self, idBbox, className, conf, top, left, width, height):
-        self.idBbox = idBbox
+    def __init__(self, className, conf, top, left, width, height):
+        # self.idBbox = idBbox
         self.className = className
-        self.conf = conf
-        self.top = top
-        self.left = left
-        self.width = width
-        self.height = height
+        self.conf = float(conf)
+        self.top = float(top)
+        self.left = float(left)
+        self.width = float(width)
+        self.height = float(height)
+
+class bboxGt:
+    def __init__(self, className, top, left, width, height):
+        # self.idBbox = idBbox
+        self.className = className
+        self.top = float(top)
+        self.left = float(left)
+        self.width = float(width)
+        self.height = float(height)
 
 
-def checkSameClass(bboxPred, bboxGt):
-    classNameBboxPred = bboxPred.split(' ')[0]
-    classNameBboxGt = bboxGt.split(' ')[0]
-    if classNameBboxPred == classNameBboxGt:
+
+def checkSameClass(bboxA, bboxB):
+    if bboxA.className == bboxB.className:
         return 1
     else:
         return 0
     
 
-# def checkOverLap(bboxA, bboxB):
-#     topA, leftA, widthA, heightA = bboxA.split(' '):
-#     topB, leftB, widthB, heightB = bboxB.split(' '):
+def cal_overlap(x1, w1, x2, w2):
+    r1 = x1 + w1
+    r2 = x2 + w2
+    if(x1 > x2):
+        left = x1
+    else:
+        left = x2
+    if(r1 < r2):
+        right = r1
+    else:
+        right = r2
+    return right - left
+         
+def cal_box_intersection(boxA, boxB):
+    w = cal_overlap(boxA.left, boxA.width, boxB.left, boxB.width)
+    h = cal_overlap(boxA.top, boxA.height, boxB.top, boxB.height)
+    print("w, h", w, h)
+    if((w < 0) or (h < 0)):
+        return 0
+    areaOverlap = w * h
+    return areaOverlap
+
+def cal_box_union(boxA, boxB):
+    interArea = cal_box_intersection(boxA, boxB)
+    return (boxA.width*boxA.height + boxB.width*boxB.height) - interArea
+
+
+def cal_IOU(boxA, boxB):
+    I = cal_box_intersection(boxA, boxB)
+    U = cal_box_union(boxA, boxB)
+    if ((I == 0) or (U == 0)):
+        return 0
+    else:
+        return I/U
 
 
 
 
 def cal_Precision(args):
-    listGtFiles = loadGtFile(args)
-    listPredFiles = loadPredFile(args)
+    listGtFiles = loadGtFile(args) 
+    listPredFiles = loadPredFile(args) 
 
-    for filePred in listPredFiles:
-        listLinesPred = readTXTFile(filePred)
-        for linePred in listLinesPred:
-            print(linePred)
+    # for filePred in sorted(listPredFiles): 
+    #     print(filePred)
+    #     listLinesPred = readTXTFile(filePred)
+    #     for linePred in listLinesPred:
+    #         print(linePred)
 
 
 
 
-    for fileGt in listGtFiles:
+    for i, fileGt in enumerate(sorted(listGtFiles)):
+        print(fileGt, sorted(listPredFiles)[i])
         listLinesGt = readTXTFile(fileGt)
-        for lineGt in listLinesGt:
-            print(lineGt)
+        listLinesPred = readTXTFile(sorted(listPredFiles)[i])
+        
+        for linePred in listLinesPred:
+            for lineGt in listLinesGt:
+                classNameA, confA, topA, leftA, widthA, heightA = linePred.split(' ')
+                classNameB, topB, leftB, widthB, heightB = lineGt.split(' ')
+                lineBboxPred = bboxPred(classNameA, confA,topA, leftA, widthA, heightA)
+                lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
+
+                print(linePred, ' - ', lineGt)
+                if checkSameClass(lineBboxPred, lineBboxGt):
+                    print("same class")
+                    iou = cal_IOU(lineBboxPred, lineBboxGt)
+                    print("IoU", iou)
+                
+                
+        
 
 
-            
-    for linePred in listLinesPred:
-        for lineGt in listLinesGt:
-            # print(linePred, ' - ', lineGt)
-            checkSameClass(linePred, lineGt)
             
 
 
@@ -143,23 +209,6 @@ def cal_FFPI():
 def cal_MR():
     return 0
 
-def checkPath(args):
-    if not os.path.exists(args.pred_path) and not os.path.exists(args.gt_path):
-        errorMessage = "[ERROR]: Folder prediction: " + args.gt_path + " and folder gt: "  + args.gt_path +  " not exist"
-        sys.exit(errorMessage)
-    elif not os.path.exists(args.pred_path):
-        errorMessage = "[ERROR]: Folder prediction: " + args.pred_path + " not exist"
-        sys.exit(errorMessage)
-    elif not os.path.exists(args.gt_path):
-        errorMessage = "[ERROR]: Folder gt: " + args.gt_path + " not exist"
-        sys.exit(errorMessage)
-
-def checkFormat(args):
-    listFormat = ["txt", "xml ", "json"]
-    checkPredFormat = False
-    for typeFormat in listFormat:
-        if args.pred_format == "txt" or args.pred_format == "xml" or args.pred_format == "json":
-            checkPredFormat = True
 
     
 
@@ -176,6 +225,7 @@ def loadGtFile(args):
     files =  glob.glob(filePath)
     return files
 
+
 def readTXTFile(file):
     TXTFileData = open(file, 'r')
     lines = TXTFileData.read().splitlines()
@@ -189,8 +239,11 @@ def readTXTFile(file):
 
 def main():
     args = parser()
+
     checkPath(args)
+
     checkFormat(args)
+
     if args.cal_Precision:
         cal_Precision(args)
     # print(args.pred_path)
