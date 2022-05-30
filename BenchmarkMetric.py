@@ -60,7 +60,7 @@ def parser():
                         help="draw graph")
     return parser.parse_args()
 
-def checkPath(args):
+def check_path(args):
     if not os.path.exists(args.pred_path) and not os.path.exists(args.gt_path):
         errorMessage = "[ERROR]: Folder prediction: " + args.gt_path + " and folder gt: "  + args.gt_path +  " not exist"
         sys.exit(errorMessage)
@@ -71,7 +71,7 @@ def checkPath(args):
         errorMessage = "[ERROR]: Folder ground truth: " + args.gt_path + " not exist"
         sys.exit(errorMessage)
 
-def checkFormat(args):
+def check_format(args):
     listFormat = ["txt", "xml ", "json"]
     checkPredFormat = False
     for typeFormat in listFormat:
@@ -111,7 +111,7 @@ class bboxGt:
 
 
 
-def checkSameClass(bboxA, bboxB):
+def check_same_class(bboxA, bboxB):
     if bboxA.className == bboxB.className:
         return 1
     else:
@@ -154,26 +154,21 @@ def cal_IOU(boxA, boxB):
         return I/U
 
 
-
+def visual_bbox(boxA, boxB):
+    return 0
 
 def cal_Precision(args):
-    listGtFiles = loadGtFile(args) 
-    listPredFiles = loadPredFile(args) 
-
-    # for filePred in sorted(listPredFiles): 
-    #     print(filePred)
-    #     listLinesPred = readTXTFile(filePred)
-    #     for linePred in listLinesPred:
-    #         print(linePred)
+    listGtFiles = load_gt_file(args) 
+    listPredFiles = load_pred_file(args) 
 
 
-
-
-    for i, fileGt in enumerate(sorted(listGtFiles)):
+    for i, fileGt in enumerate(sorted(listGtFiles)):               #each file .txt
         print(fileGt, sorted(listPredFiles)[i])
-        listLinesGt = readTXTFile(fileGt)
-        listLinesPred = readTXTFile(sorted(listPredFiles)[i])
+        listLinesGt = read_txt_file(fileGt)
+        listLinesPred = read_txt_file(sorted(listPredFiles)[i])
         
+
+
         for linePred in listLinesPred:
             for lineGt in listLinesGt:
                 classNameA, confA, topA, leftA, widthA, heightA = linePred.split(' ')
@@ -181,8 +176,11 @@ def cal_Precision(args):
                 lineBboxPred = bboxPred(classNameA, confA,topA, leftA, widthA, heightA)
                 lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
 
-                print(linePred, ' - ', lineGt)
-                if checkSameClass(lineBboxPred, lineBboxGt):
+                # print(linePred, ' - ', lineGt)
+                if check_same_class(lineBboxPred, lineBboxGt):          #each class
+                    countTP = 0
+                    countFP = 0
+                
                     print("same class")
                     iou = cal_IOU(lineBboxPred, lineBboxGt)
                     print("IoU", iou)
@@ -215,18 +213,18 @@ def cal_MR():
 
 
 
-def loadPredFile(args):
+def load_pred_file(args):
     filePath = args.pred_path + "/*."  + args.pred_format 
     files =  glob.glob(filePath)
     return files
 
-def loadGtFile(args):
+def load_gt_file(args):
     filePath = args.gt_path + "/*." + args.gt_format 
     files =  glob.glob(filePath)
     return files
 
 
-def readTXTFile(file):
+def read_txt_file(file):
     TXTFileData = open(file, 'r')
     lines = TXTFileData.read().splitlines()
     return lines
@@ -240,9 +238,9 @@ def readTXTFile(file):
 def main():
     args = parser()
 
-    checkPath(args)
+    check_path(args)
 
-    checkFormat(args)
+    check_format(args)
 
     if args.cal_Precision:
         cal_Precision(args)
