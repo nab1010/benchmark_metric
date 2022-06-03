@@ -148,11 +148,11 @@ ground truth file vid1_txt:
 
 
 
-* `AP@[.5:.05:.95]`: 
-* `AP@50`:
-* `AP@75`: 
-* `AP`:
-* `mAP (IoU=0.50)`:
+* `AP@[.5:.05:.95]`: % Average Precision at IoU = 0.50:0.05:0.95 (primary challenge metric)
+* `AP@50`: Average Precision at IoU = 0.50 (PASCAL VOC metric)
+* `AP@75`: Average Precision at IoU = 0.75 (strict metric)
+* `AP`: % Average Precision at IoU = 0.50:0.05:0.95
+* `mAP (IoU=0.50)`: means Average Precision at IoU = 0.50
 * <code>AP<sub>S</sub></code>: Average Precision for small object: area < 32<sup>2</sup>
 * <code>AP<sub>M</sub></code>: Average Precision for medium object: 32<sup>2</sup> < area < 96<sup>2</sup>
 * <code>AP<sub>L</sub></code>: Average Precision for large object: area > 96<sup>2</sup>
