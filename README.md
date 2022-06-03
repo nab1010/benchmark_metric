@@ -114,6 +114,17 @@ ground truth file vid1_txt:
 
 * `TP`: True Positive - Correct detection of the model
 * `FN`: False Negative - Ground truth not detected 
+
+
+
+### Popular object detection methods
+
+|Method|Benchmark Dataset|Metric|
+| ------ | --------- | ----- | 
+|CornerNet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; `AP@75`; `AP<sub>S</sub>`; `AP`|
+
+
+
 ### TO DO:
 
 - [ ] **Calculate Precision**  --Pending--

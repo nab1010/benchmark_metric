@@ -109,6 +109,7 @@ class bboxGt:
         self.left = float(left)
         self.width = float(width)
         self.height = float(height)
+        self.used = False
 
 class classData:
     
@@ -201,9 +202,12 @@ def visual_bbox(image, boxA, boxB, color_box): #================================
 
 
 def cal_Precision(args):
+    list_class = ['0','1','2','3']
+    iou_thresh = 0.5
+
+
     listGtFiles = load_gt_file(args) 
     listPredFiles = load_pred_file(args) 
-    list_class = ['0','1','2','3']
     # print(benchmark_data.class_arr)
 
     
@@ -226,8 +230,8 @@ def cal_Precision(args):
             benchmark_data.add_class(new_class)
 
 
-        for linePred in listLinesPred:
-            for lineGt in listLinesGt:
+        for lineGt in listLinesGt:
+            for linePred in listLinesPred:
                 classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
                 # print(classNameA, confA, topA, leftA, widthA, heightA)
                 classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
@@ -246,7 +250,7 @@ def cal_Precision(args):
                     # print("same class")
                     iou = cal_IOU(lineBboxPred, lineBboxGt)
                     if iou > 0:
-                        if iou >= 0.3:
+                        if iou >= iou_thresh:
                             image = visual_bbox(image, lineBboxPred, lineBboxGt, "green")
                             
                             for i in range (len(benchmark_data.class_arr)):
