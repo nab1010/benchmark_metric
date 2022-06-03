@@ -148,20 +148,20 @@ ground truth file vid1_txt:
 
 
 
-* `AP@[.5:.05:.95]`
-* `AP@50`
-* `AP@75`
-* `AP`
-* `mAP (IoU=0.50)`
-* <code>AP<sub>S</sub></code>
-* <code>AP<sub>M</sub></code>
-* <code>AP<sub>L</sub></code>
-* <code>AR<sub>1</sub></code>
-* <code>AR<sub>10</sub></code>
-* <code>AR<sub>100</sub></code>
-* <code>AR<sub>S</sub></code>
-* <code>AR<sub>M</sub></code>
-* <code>AR<sub>L</sub></code>
+* `AP@[.5:.05:.95]`: 
+* `AP@50`:
+* `AP@75`: 
+* `AP`:
+* `mAP (IoU=0.50)`:
+* <code>AP<sub>S</sub></code>: Average Precision for small object: area < 32<sup>2</sup>
+* <code>AP<sub>M</sub></code>: Average Precision for medium object: 32<sup>2</sup> < area < 96<sup>2</sup>
+* <code>AP<sub>L</sub></code>: Average Precision for large object: area > 96<sup>2</sup>
+* <code>AR<sub>1</sub></code>: Average Recall given 1 detection per image
+* <code>AR<sub>10</sub></code>: Average Recall given 10 detections per image
+* <code>AR<sub>100</sub></code>: Average Recall given 100 detections per image
+* <code>AR<sub>S</sub></code>: Average Recall for small object: area < 32<sup>2</sup>
+* <code>AR<sub>M</sub></code>: Average Recall for medium object: 32<sup>2</sup> < area < 96<sup>2</sup>
+* <code>AR<sub>L</sub></code>: Average Recall for large object: area > 96<sup>2</sup>
 
 
 
