@@ -148,6 +148,23 @@ ground truth file vid1_txt:
 
 
 
+* `AP@[.5:.05:.95]`
+* `AP@50`
+* `AP@75`
+* `AP`
+* `mAP (IoU=0.50)`
+* <code>AP<sub>S</sub></code>
+* <code>AP<sub>M</sub></code>
+* <code>AP<sub>L</sub></code>
+* <code>AR<sub>1</sub></code>
+* <code>AR<sub>10</sub></code>
+* <code>AR<sub>100</sub></code>
+* <code>AR<sub>S</sub></code>
+* <code>AR<sub>M</sub></code>
+* <code>AR<sub>L</sub></code>
+
+
+
 
 ### TO DO:
 
