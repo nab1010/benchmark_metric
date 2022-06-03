@@ -148,7 +148,7 @@ ground truth file vid1_txt:
 
 
 
-* `AP@[.5:.05:.95]`: % Average Precision at IoU = 0.50:0.05:0.95 (primary challenge metric)
+* `AP@[.5:.05:.95]`: % Average Precision at IoU = 0.50:0.05:0.95 (**primary challenge metric**)
 * `AP@50`: Average Precision at IoU = 0.50 (PASCAL VOC metric)
 * `AP@75`: Average Precision at IoU = 0.75 (strict metric)
 * `AP`: % Average Precision at IoU = 0.50:0.05:0.95
