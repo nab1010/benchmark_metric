@@ -229,7 +229,7 @@ def cal_Precision(args):
         for linePred in listLinesPred:
             for lineGt in listLinesGt:
                 classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
-                print(classNameA, confA, topA, leftA, widthA, heightA)
+                # print(classNameA, confA, topA, leftA, widthA, heightA)
                 classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
                 lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
                 lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
