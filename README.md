@@ -121,13 +121,13 @@ ground truth file vid1_txt:
 
 |Method|Benchmark Dataset|Metric|
 | ------ | --------- | ----- | 
-|CornerNet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|EfficientDet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; `AP@75`|
-|Fast R-CNN|PASCAL VOC2007, 2010, 2012|`AP`; `mAP (IoU=0.50)`|
-|Faster R-CNN|PASCAL VOC2007, 2012|`AP`; `mAP (IoU=0.50)`|
-|Faster R-CNN|COCO|`AP@[.5:.05:.95]`; `AP@50`|
-|R-CNN|PASCAL VOC2007, 2010, 2012|`AP`; `mAP (IoU=0.50)`|
-|RFB Net|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
+|**CornerNet**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
+|**EfficientDet**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; `AP@75`|
+|**Fast R-CNN**|PASCAL VOC2007, 2010, 2012|`AP`; `mAP (IoU=0.50)`|
+|**Faster R-CNN**|PASCAL VOC2007, 2012|`AP`; `mAP (IoU=0.50)`|
+|**Faster R-CNN**|COCO|`AP@[.5:.05:.95]`; `AP@50`|
+|**R-CNN**|PASCAL VOC2007, 2010, 2012|`AP`; `mAP (IoU=0.50)`|
+|RFB Net|PASCAL VOC2007|`mAP (IoU=0.50)`|
 |RFB Net|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
 |RefineDet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
 |RefineDet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
