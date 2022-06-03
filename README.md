@@ -121,7 +121,7 @@ ground truth file vid1_txt:
 
 |Method|Benchmark Dataset|Metric|
 | ------ | --------- | ----- | 
-|CornerNet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; `AP@75`; `AP<sub>S</sub>`; `AP`|
+|CornerNet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
 
 
 
