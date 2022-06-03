@@ -191,11 +191,11 @@ def cal_IOU(boxA, boxB):
 
 def visual_bbox(image, boxA, boxB, color_box): #================================
     if color_box == 'green':
-        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (0, 255, 0), 2)
-        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (0, 125, 0), 2)
+        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (0, 255, 0), 1)
+        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (0, 125, 0), 1)
     else:    
-        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (0, 0,255), 2)
-        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (0, 0,125), 2)
+        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (0, 0,255), 1)
+        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (0, 0,125), 1)
         
     return image
 
