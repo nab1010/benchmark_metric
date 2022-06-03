@@ -123,26 +123,28 @@ ground truth file vid1_txt:
 | ------ | --------- | ----- | 
 |**CornerNet**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
 |**EfficientDet**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; `AP@75`|
-|**Fast R-CNN**|PASCAL VOC2007, 2010, 2012|`AP`; `mAP (IoU=0.50)`|
-|**Faster R-CNN**|PASCAL VOC2007, 2012|`AP`; `mAP (IoU=0.50)`|
+|**Fast R-CNN**|PASCAL VOC 2007, 2010, 2012|`AP`; `mAP (IoU=0.50)`|
+|**Faster R-CNN**|PASCAL VOC 2007, 2012|`AP`; `mAP (IoU=0.50)`|
 |**Faster R-CNN**|COCO|`AP@[.5:.05:.95]`; `AP@50`|
-|**R-CNN**|PASCAL VOC2007, 2010, 2012|`AP`; `mAP (IoU=0.50)`|
-|RFB Net|PASCAL VOC2007|`mAP (IoU=0.50)`|
-|RFB Net|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|RefineDet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|RefineDet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|RefineDet|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|R-FCN|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|R-FCN|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|SSD|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|SSD|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|SSD|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|YOLOv1|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|YOLOv2|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|YOLOv2|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|YOLOv3|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|YOLOv4|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
-|YOLOv5|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
+|**R-CNN**|PASCAL VOC 2007, 2010, 2012|`AP`; `mAP (IoU=0.50)`|
+|**RFB Net**|PASCAL VOC 2007|`mAP (IoU=0.50)`|
+|**RFB Net**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
+|**RefineDet**|PASCAL VOC 2007, 2012|`mAP (IoU=0.50)`|
+|**RefineDet**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
+|**RentinaNet**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
+|**R-FCN**|PASCAL VOC 2007, 2012|`mAP (IoU=0.50)`|
+|**R-FCN**|COCO|`AP@[.5:.05:.95]`; `AP@50`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
+|**SSD**|PASCAL VOC 2007, 2012|`mAP (IoU=0.50)`|
+|**SSD**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>; <code>AR<sub>1</sub></code>; <code>AR<sub>10</sub></code>; <code>AR<sub>100</sub></code>; <code>AR<sub>S</sub></code>; <code>AR<sub>M</sub></code>; <code>AR<sub>L</sub></code>|
+|**SSD**|ImageNet|`mAP (IoU=0.50)`|
+|**YOLOv1**|PASCAL VOC 2007, 2012|`AP`; `mAP (IoU=0.50)`|
+|**YOLOv1**|Picasso|`AP`; `mAP (IoU=0.50)`|
+|**YOLOv1**|People-Art|`AP`; `mAP (IoU=0.50)`|
+|**YOLOv2**|PASCAL VOC 2007, 2012|`AP`; `mAP (IoU=0.50)`|
+|**YOLOv2**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>; <code>AR<sub>1</sub></code>; <code>AR<sub>10</sub></code>; <code>AR<sub>100</sub></code>; <code>AR<sub>S</sub></code>; <code>AR<sub>M</sub></code>; <code>AR<sub>L</sub></code>|
+|**YOLOv3**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>; <code>AR<sub>1</sub></code>; <code>AR<sub>10</sub></code>; <code>AR<sub>100</sub></code>; <code>AR<sub>S</sub></code>; <code>AR<sub>M</sub></code>; <code>AR<sub>L</sub></code>|
+|**YOLOv4**|COCO|`AP@[.5:.05:.95]`; `AP@50`; `AP@75`; <code>AP<sub>S</sub></code>; <code>AP<sub>M</sub></code>; <code>AP<sub>L</sub></code>|
+|**YOLOv5**|COCO|`AP@[.5:.05:.95]`; `AP@50`|
 
 
 
