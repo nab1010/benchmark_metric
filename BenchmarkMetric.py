@@ -1,8 +1,9 @@
 
 import argparse
 import glob, os
+from re import L
 import sys
-
+import cv2
 
 def parser():
     parser = argparse.ArgumentParser(description="Benchmark Metric Object Detection")
@@ -91,9 +92,9 @@ def check_format(args):
 
 
 class bboxPred:
-    def __init__(self, className, conf, top, left, width, height):
+    def __init__(self, box_class_name, conf, top, left, width, height):
         # self.idBbox = idBbox
-        self.className = className
+        self.box_class_name = box_class_name
         self.conf = float(conf)
         self.top = float(top)
         self.left = float(left)
@@ -101,9 +102,9 @@ class bboxPred:
         self.height = float(height)
 
 class bboxGt:
-    def __init__(self, className, top, left, width, height):
+    def __init__(self, box_class_name, top, left, width, height):
         # self.idBbox = idBbox
-        self.className = className
+        self.box_class_name = box_class_name
         self.top = float(top)
         self.left = float(left)
         self.width = float(width)
@@ -111,10 +112,12 @@ class bboxGt:
 
 class classData:
     
-    def __init__(self):
+    def __init__(self, class_name):
+        self.class_name = class_name
         self.TP = 0
         self.FP = 0
         self.FN = 0
+        self.AP = 0
 
     def TP_up(self):
         self.TP += 1
@@ -125,13 +128,31 @@ class classData:
     def FN_up(self):
         self.FN += 1
 
+class benchmarkData:
+    def __init__(self, list_class):
+        self.list_class = list_class
+        self.class_arr = []
+        self.mAP = 0
+
+    def add_class(self, classData):
+        self.class_arr.append(classData)
+
+
+        
+
+# class classProject:
+
+
 
 def check_same_class(bboxA, bboxB):
-    if bboxA.className == bboxB.className:
-        return 1
+    if bboxA.box_class_name == bboxB.box_class_name:
+        return 1, bboxA.box_class_name
     else:
-        return 0
+        return 0, bboxA.box_class_name
+
     
+
+
 
 def cal_overlap(x1, w1, x2, w2):
     r1 = x1 + w1
@@ -149,7 +170,7 @@ def cal_overlap(x1, w1, x2, w2):
 def cal_box_intersection(boxA, boxB):
     w = cal_overlap(boxA.left, boxA.width, boxB.left, boxB.width)
     h = cal_overlap(boxA.top, boxA.height, boxB.top, boxB.height)
-    print("w, h", w, h)
+    # print("w, h", w, h)
     if((w < 0) or (h < 0)):
         return 0
     areaOverlap = w * h
@@ -168,13 +189,22 @@ def cal_IOU(boxA, boxB):
     else:
         return I/U
 
+def visual_bbox(image, boxA, boxB): #================================
 
-def visual_bbox(boxA, boxB):
     return 0
 
 def cal_Precision(args):
     listGtFiles = load_gt_file(args) 
     listPredFiles = load_pred_file(args) 
+    list_class = ['0','1','2','3']
+    benchmark_data = benchmarkData(list_class)
+
+    for class_name in benchmark_data.list_class:
+        new_class = classData(class_name)
+        benchmark_data.add_class(new_class)
+        print(class_name)
+
+    
 
 
     for i, fileGt in enumerate(sorted(listGtFiles)):               #each file .txt
@@ -192,15 +222,32 @@ def cal_Precision(args):
                 lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
 
                 # print(linePred, ' - ', lineGt)
-                if check_same_class(lineBboxPred, lineBboxGt):          #each class
+                check, class_name_same = check_same_class(lineBboxPred, lineBboxGt)
+                
+                
+                
+                if check:          #each class
                     countTP = 0
                     countFP = 0
                 
-                    print("same class")
+                    # print("same class")
                     iou = cal_IOU(lineBboxPred, lineBboxGt)
-                    print("IoU", iou)
+                    if iou > 0:
+                        # image = visual_bbox(image, lineBboxPred, lineBboxGt)
+                        if iou >= 0.5:
+                            for classData in benchmark_data.class_arr:
+                                print(classData)
+                                # if classData.class_name == class_name_same:
+                                #     classData.TP_up()
+                            print("TP")
+                        else:
+                            # for classData in benchmark_data.class_arr:
+                            #     if classData.class_name == class_name_same:
+                            #         classData.FP_up()
+                            print("FP")
+                # print("IoU", iou)
                 
-                
+    # cv2.imshow('image', image)
         
 
 
