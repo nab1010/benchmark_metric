@@ -189,20 +189,22 @@ def cal_IOU(boxA, boxB):
     else:
         return I/U
 
-def visual_bbox(image, boxA, boxB): #================================
+def visual_bbox(image, boxA, boxB, color_box): #================================
+    if color_box == 'green':
+        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (0, 255, 0), 2)
+        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (0, 125, 0), 2)
+    else:    
+        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (0, 0,255), 2)
+        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (0, 0,125), 2)
+        
+    return image
 
-    return 0
 
 def cal_Precision(args):
     listGtFiles = load_gt_file(args) 
     listPredFiles = load_pred_file(args) 
     list_class = ['0','1','2','3']
-    benchmark_data = benchmarkData(list_class)
-
-    for class_name in benchmark_data.list_class:
-        new_class = classData(class_name)
-        benchmark_data.add_class(new_class)
-        print(class_name)
+    # print(benchmark_data.class_arr)
 
     
 
@@ -212,13 +214,24 @@ def cal_Precision(args):
         listLinesGt = read_txt_file(fileGt)
         listLinesPred = read_txt_file(sorted(listPredFiles)[i])
         
+        image_path = sorted(listPredFiles)[i][:-3] + "jpg" 
+        # print(image_path)
+       
+        image = cv2.imread(image_path) 
+
+        benchmark_data = benchmarkData(list_class)
+
+        for class_name in benchmark_data.list_class:
+            new_class = classData(class_name)
+            benchmark_data.add_class(new_class)
 
 
         for linePred in listLinesPred:
             for lineGt in listLinesGt:
-                classNameA, confA, topA, leftA, widthA, heightA = linePred.split(' ')
-                classNameB, topB, leftB, widthB, heightB = lineGt.split(' ')
-                lineBboxPred = bboxPred(classNameA, confA,topA, leftA, widthA, heightA)
+                classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
+                print(classNameA, confA, topA, leftA, widthA, heightA)
+                classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
+                lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
                 lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
 
                 # print(linePred, ' - ', lineGt)
@@ -233,20 +246,25 @@ def cal_Precision(args):
                     # print("same class")
                     iou = cal_IOU(lineBboxPred, lineBboxGt)
                     if iou > 0:
-                        # image = visual_bbox(image, lineBboxPred, lineBboxGt)
-                        if iou >= 0.5:
-                            for classData in benchmark_data.class_arr:
-                                print(classData)
-                                # if classData.class_name == class_name_same:
-                                #     classData.TP_up()
-                            print("TP")
+                        if iou >= 0.3:
+                            image = visual_bbox(image, lineBboxPred, lineBboxGt, "green")
+                            
+                            for i in range (len(benchmark_data.class_arr)):
+                                # print(classData)
+                                if benchmark_data.class_arr[i].class_name == class_name_same:
+                                    benchmark_data.class_arr[i].TP_up()
+                                print("TP: ", benchmark_data.class_arr[i].TP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", iou)
                         else:
-                            # for classData in benchmark_data.class_arr:
-                            #     if classData.class_name == class_name_same:
-                            #         classData.FP_up()
-                            print("FP")
-                # print("IoU", iou)
-                
+                            image = visual_bbox(image, lineBboxPred, lineBboxGt, "red")
+                            for i in range (len(benchmark_data.class_arr)):
+                                # print(classData)
+                                if benchmark_data.class_arr[i].class_name == class_name_same:
+                                    benchmark_data.class_arr[i].FP_up()
+                                print("FP: ", benchmark_data.class_arr[i].FP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", iou)
+                            
+        print(benchmark_data.class_arr[0].TP/(benchmark_data.class_arr[0].TP+ benchmark_data.class_arr[0].FP))
+        cv2.imshow('image', image)
+        cv2.waitKey(0)        
     # cv2.imshow('image', image)
         
 
