@@ -230,11 +230,11 @@ def cal_Precision(args):
 
 
 
-        for lineGt in listLinesGt:                                                                      # each grouth truth box
-            classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
+        for linePred in listLinesPred:                                                                  # each prediction box
+            classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
             best_iou = 0
-            for linePred in listLinesPred:                                                                  # each prediction box
-                classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
+            for lineGt in listLinesGt:                                                                      # each grouth truth box
+                classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
                 # print(classNameA, confA, topA, leftA, widthA, heightA)
                 lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
                 lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
