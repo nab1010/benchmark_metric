@@ -175,3 +175,10 @@ ground truth file vid1_txt:
 - [ ] Calculate mAP
 - [ ] Calculate FFPI
 - [ ] Calculate MR
+
+
+
+
+### Reference
+
+* Padilla, Rafael & Lobato Passos, Wesley & Dias, Thadeu & Netto, Sergio & da Silva, Eduardo. (2021). A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit. Electronics. 10. 279-306. 10.3390/electronics10030279. 

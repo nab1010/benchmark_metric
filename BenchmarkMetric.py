@@ -211,9 +211,14 @@ def cal_Precision(args):
     # print(benchmark_data.class_arr)
 
     
+    benchmark_data = benchmarkData(list_class)                                                      # create benchmark_data class
+
+    for class_name in benchmark_data.list_class:                                        
+        new_class = classData(class_name)                                                           # create class data
+        benchmark_data.add_class(new_class)                                                         # add all class to benchmark_data
 
 
-    for i, fileGt in enumerate(sorted(listGtFiles)):               #each file .txt
+    for i, fileGt in enumerate(sorted(listGtFiles)):                                               # each file .txt
         print(fileGt, sorted(listPredFiles)[i])
         listLinesGt = read_txt_file(fileGt)
         listLinesPred = read_txt_file(sorted(listPredFiles)[i])
@@ -223,18 +228,14 @@ def cal_Precision(args):
        
         image = cv2.imread(image_path) 
 
-        benchmark_data = benchmarkData(list_class)
-
-        for class_name in benchmark_data.list_class:
-            new_class = classData(class_name)
-            benchmark_data.add_class(new_class)
 
 
-        for lineGt in listLinesGt:
-            for linePred in listLinesPred:
+        for lineGt in listLinesGt:                                                                      # each grouth truth box
+            classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
+            best_iou = 0
+            for linePred in listLinesPred:                                                                  # each prediction box
                 classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
                 # print(classNameA, confA, topA, leftA, widthA, heightA)
-                classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
                 lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
                 lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
 
@@ -250,6 +251,12 @@ def cal_Precision(args):
                     # print("same class")
                     iou = cal_IOU(lineBboxPred, lineBboxGt)
                     if iou > 0:
+                        if iou > best_iou:
+                            best_iou = iou
+                            gt_match = lineBboxGt
+                            pred_match = lineBboxPred
+                            lineBboxGt.used = True
+
                         if iou >= iou_thresh:
                             image = visual_bbox(image, lineBboxPred, lineBboxGt, "green")
                             
