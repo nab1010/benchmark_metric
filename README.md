@@ -77,7 +77,7 @@ ground truth file vid1_txt:
 ## Usage
 
 |Argument|Description|Dest|Default|
-| ------ | --------- | -- | ----- | 
+| :------: | --------- | :--: | :-----: | 
 | `-h`,`--help` | show this help message and exit |  |  | 
 | `-pred`,`--pred_path` | prediciton folder path | pred_path |  | 
 | `-gt`,`--gt_path` | ground truth folder path | gt_path |  | 
