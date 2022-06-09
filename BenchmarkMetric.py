@@ -115,9 +115,12 @@ class classData:
     
     def __init__(self, class_name):
         self.class_name = class_name
+        self.count_gt   = 0
         self.TP = 0
         self.FP = 0
         self.FN = 0
+        self.Precision = 0
+        self.Recall = 0
         self.AP = 0
 
     def TP_up(self):
@@ -128,6 +131,9 @@ class classData:
     
     def FN_up(self):
         self.FN += 1
+    
+    def count_gt_up(self):
+        self.count_gt += 1
 
 class benchmarkData:
     def __init__(self, list_class):
@@ -237,6 +243,23 @@ def cal_Precision(args):
         img = cv2.imread(image_path) 
 
 
+        list_pred_bbox_obj = []    
+        for linePred in listLinesPred:
+            classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
+            line_bbox_pred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
+            list_pred_bbox_obj.append(line_bbox_pred)
+
+        list_gt_bbox_obj = []    
+        for lineGt in listLinesGt:
+            classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
+            line_bbox_gt = bboxGt(classNameB, topB, leftB, widthB, heightB)
+            list_gt_bbox_obj.append(line_bbox_gt)
+            for class_data in benchmark_data.class_arr:
+                if line_bbox_gt.box_class_name == class_data.class_name:
+                    class_data.count_gt_up()
+        print("class_count_motor", benchmark_data.class_arr[0].count_gt)
+
+
 
         for linePred in listLinesPred: 
             image = img.copy()                                                                 # each prediction box
@@ -244,7 +267,14 @@ def cal_Precision(args):
             lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
             # image = visual_bbox_1(image, lineBboxPred, type_box = 'pred')
             best_iou = 0
-            for lineGt in listLinesGt:                                                                      # each grouth truth box
+            
+        
+            
+            for lineGt in listLinesGt: 
+                
+                
+                
+                                                                                     # each grouth truth box
                 classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
                 # print(classNameA, confA, topA, leftA, widthA, heightA)
                 lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
@@ -252,7 +282,7 @@ def cal_Precision(args):
 
                 # print(linePred, ' - ', lineGt)
                 check, class_name_same = check_same_class(lineBboxPred, lineBboxGt)
-                
+
                 
                 if check:                                                                                       # check same class
                     # print("same class")
@@ -302,8 +332,17 @@ def cal_Precision(args):
             # cv2.imshow('image', image)
             # cv2.waitKey(0) 
                             
-    print("precision :", benchmark_data.class_arr[0].TP/(benchmark_data.class_arr[0].TP+ benchmark_data.class_arr[0].FP))
-    print("recall :", )
+    print("precision_motor:", benchmark_data.class_arr[0].TP / (benchmark_data.class_arr[0].TP + benchmark_data.class_arr[0].FP))
+    print("recall_motor:", benchmark_data.class_arr[0].TP/ benchmark_data.class_arr[0].count_gt)
+                            
+    print("precision_car:", benchmark_data.class_arr[1].TP / (benchmark_data.class_arr[1].TP + benchmark_data.class_arr[1].FP))
+    print("recall_car:", benchmark_data.class_arr[1].TP/ benchmark_data.class_arr[1].count_gt)
+                            
+    print("precision_bus:", benchmark_data.class_arr[2].TP / (benchmark_data.class_arr[2].TP + benchmark_data.class_arr[2].FP))
+    print("recall_bus:", benchmark_data.class_arr[2].TP/ benchmark_data.class_arr[2].count_gt)
+                            
+    # print("precision_truck:", benchmark_data.class_arr[3].TP / (benchmark_data.class_arr[3].TP + benchmark_data.class_arr[3].FP))
+    # print("recall_truck:", benchmark_data.class_arr[3].TP/ benchmark_data.class_arr[3].count_gt)
     # cv2.imshow('image', image)
         
 
