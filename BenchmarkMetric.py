@@ -161,7 +161,7 @@ def cal_overlap(x1, w1, x2, w2):
     if(x1 > x2):
         left = x1
     else:
-        left = x256
+        left = x2
     if(r1 < r2):
         right = r1
     else:
@@ -302,8 +302,8 @@ def cal_Precision(args):
             # cv2.imshow('image', image)
             # cv2.waitKey(0) 
                             
-    print("precision ", benchmark_data.class_arr[0].TP/(benchmark_data.class_arr[0].TP+ benchmark_data.class_arr[0].FP))
-    print("recall", )
+    print("precision :", benchmark_data.class_arr[0].TP/(benchmark_data.class_arr[0].TP+ benchmark_data.class_arr[0].FP))
+    print("recall :", )
     # cv2.imshow('image', image)
         
 
