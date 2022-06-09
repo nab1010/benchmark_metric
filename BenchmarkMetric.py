@@ -161,7 +161,7 @@ def cal_overlap(x1, w1, x2, w2):
     if(x1 > x2):
         left = x1
     else:
-        left = x2
+        left = x256
     if(r1 < r2):
         right = r1
     else:
@@ -192,12 +192,20 @@ def cal_IOU(boxA, boxB):
 
 def visual_bbox(image, boxA, boxB, color_box): #================================
     if color_box == 'green':
-        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (0, 255, 0), 1)
-        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (0, 125, 0), 1)
+        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (189, 255, 51), 1)
+        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (51, 255, 87), 1)
     else:    
-        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (0, 0,255), 1)
-        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (0, 0,125), 1)
-        
+        image = cv2.rectangle(image, (int(boxA.top), int(boxA.left)), (int(boxA.top + boxA.height), int(boxA.left + boxA.width)), (51, 189, 255), 1)
+        image = cv2.rectangle(image, (int(boxB.top), int(boxB.left)), (int(boxB.top + boxB.height), int(boxB.left + boxB.width)), (51, 87, 255), 1)
+    return image
+
+def visual_bbox_1(image, box, type_box):
+    if type_box == 'gt':
+        image = cv2.rectangle(image, (int(box.top), int(box.left)), (int(box.top + box.height), int(box.left + box.width)), (0, 255, 0), 1)
+    elif type_box == 'pred':
+        image = cv2.rectangle(image, (int(box.top), int(box.left)), (int(box.top + box.height), int(box.left + box.width)), (0, 0, 255), 1)
+    else:
+        image = cv2.rectangle(image, (int(box.top), int(box.left)), (int(box.top + box.height), int(box.left + box.width)), (255, 0, 0), 1)
     return image
 
 
@@ -226,28 +234,27 @@ def cal_Precision(args):
         image_path = sorted(listPredFiles)[i][:-3] + "jpg" 
         # print(image_path)
        
-        image = cv2.imread(image_path) 
+        img = cv2.imread(image_path) 
 
 
 
-        for linePred in listLinesPred:                                                                  # each prediction box
+        for linePred in listLinesPred: 
+            image = img.copy()                                                                 # each prediction box
             classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
+            lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
+            # image = visual_bbox_1(image, lineBboxPred, type_box = 'pred')
             best_iou = 0
             for lineGt in listLinesGt:                                                                      # each grouth truth box
                 classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
                 # print(classNameA, confA, topA, leftA, widthA, heightA)
-                lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
                 lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
+                # image = visual_bbox_1(image, lineBboxGt, type_box = 'gt')
 
                 # print(linePred, ' - ', lineGt)
                 check, class_name_same = check_same_class(lineBboxPred, lineBboxGt)
                 
                 
-                
-                if check:          #each class
-                    countTP = 0
-                    countFP = 0
-                
+                if check:                                                                                       # check same class
                     # print("same class")
                     iou = cal_IOU(lineBboxPred, lineBboxGt)
                     if iou > 0:
@@ -255,27 +262,48 @@ def cal_Precision(args):
                             best_iou = iou
                             gt_match = lineBboxGt
                             pred_match = lineBboxPred
-                            lineBboxGt.used = True
+                            
+            # image = visual_bbox_1(image, pred_match, type_box = 'g')
 
-                        if iou >= iou_thresh:
-                            image = visual_bbox(image, lineBboxPred, lineBboxGt, "green")
+            if best_iou >= iou_thresh:
+                if not gt_match.used:
+                    # image = visual_bbox(image, pred_match, gt_match, "green")
+                    gt_match.used = True
+                    # benchmark_data.class_arr.class_name[pred_match.box_class_name].TP_up
+                    for i in range (len(benchmark_data.class_arr)):
+                        # print(classData)
+                        if benchmark_data.class_arr[i].class_name == pred_match.box_class_name:
+                            benchmark_data.class_arr[i].TP_up()
+                            print("TP: ", benchmark_data.class_arr[i].TP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", best_iou)
+                            # cv2.imshow('image', image)
+                            # cv2.waitKey(0)        
+                            break
+                else:
+                    # image = visual_bbox(image, pred_match, gt_match, "red")
+                    for i in range (len(benchmark_data.class_arr)):
+                        # print(classData)
+                        if benchmark_data.class_arr[i].class_name == pred_match.box_class_name:
+                            benchmark_data.class_arr[i].FP_up()
+                            print("FP: ", benchmark_data.class_arr[i].FP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", best_iou)
+                            # cv2.imshow('image', image)
+                            # cv2.waitKey(0) 
+                            break
+                        
+            else:
+                # image = visual_bbox(image, pred_match, gt_match, "red")
+                for i in range (len(benchmark_data.class_arr)):
+                    # print(classData)
+                    if benchmark_data.class_arr[i].class_name == pred_match.box_class_name:
+                        benchmark_data.class_arr[i].FP_up()
+                        print("FP: ", benchmark_data.class_arr[i].FP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", best_iou)
+                        # cv2.imshow('image', image)
+                        # cv2.waitKey(0) 
+                        break
+            # cv2.imshow('image', image)
+            # cv2.waitKey(0) 
                             
-                            for i in range (len(benchmark_data.class_arr)):
-                                # print(classData)
-                                if benchmark_data.class_arr[i].class_name == class_name_same:
-                                    benchmark_data.class_arr[i].TP_up()
-                                print("TP: ", benchmark_data.class_arr[i].TP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", iou)
-                        else:
-                            image = visual_bbox(image, lineBboxPred, lineBboxGt, "red")
-                            for i in range (len(benchmark_data.class_arr)):
-                                # print(classData)
-                                if benchmark_data.class_arr[i].class_name == class_name_same:
-                                    benchmark_data.class_arr[i].FP_up()
-                                print("FP: ", benchmark_data.class_arr[i].FP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", iou)
-                            
-        print(benchmark_data.class_arr[0].TP/(benchmark_data.class_arr[0].TP+ benchmark_data.class_arr[0].FP))
-        cv2.imshow('image', image)
-        cv2.waitKey(0)        
+    print("precision ", benchmark_data.class_arr[0].TP/(benchmark_data.class_arr[0].TP+ benchmark_data.class_arr[0].FP))
+    print("recall", )
     # cv2.imshow('image', image)
         
 
