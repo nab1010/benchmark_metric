@@ -261,37 +261,41 @@ def cal_Precision(args):
 
 
 
-        for linePred in listLinesPred: 
-            image = img.copy()                                                                 # each prediction box
-            classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
-            lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
+        for bbox_pred_obj in list_pred_bbox_obj: 
+            # image = img.copy()               
+            #                                                                               # each prediction box
+            # classNameA, confA, topA, leftA, heightA, widthA = linePred.split(' ')
+            # lineBboxPred = bboxPred(classNameA, confA, topA, leftA, widthA, heightA)
+
             # image = visual_bbox_1(image, lineBboxPred, type_box = 'pred')
             best_iou = 0
             
         
             
-            for lineGt in listLinesGt: 
+            for bbox_gt_obj in list_gt_bbox_obj: 
                 
                 
                 
+                # classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
                                                                                      # each grouth truth box
-                classNameB, topB, leftB, heightB, widthB = lineGt.split(' ')
                 # print(classNameA, confA, topA, leftA, widthA, heightA)
-                lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
+
+                # lineBboxGt = bboxGt(classNameB, topB, leftB, widthB, heightB)
+
                 # image = visual_bbox_1(image, lineBboxGt, type_box = 'gt')
 
                 # print(linePred, ' - ', lineGt)
-                check, class_name_same = check_same_class(lineBboxPred, lineBboxGt)
+                check, class_name_same = check_same_class(bbox_pred_obj, bbox_gt_obj)
 
                 
                 if check:                                                                                       # check same class
                     # print("same class")
-                    iou = cal_IOU(lineBboxPred, lineBboxGt)
+                    iou = cal_IOU(bbox_pred_obj, bbox_gt_obj)
                     if iou > 0:
                         if iou > best_iou:
                             best_iou = iou
-                            gt_match = lineBboxGt
-                            pred_match = lineBboxPred
+                            gt_match = bbox_gt_obj
+                            pred_match = bbox_pred_obj
                             
             # image = visual_bbox_1(image, pred_match, type_box = 'g')
 
@@ -329,9 +333,9 @@ def cal_Precision(args):
                         # cv2.imshow('image', image)
                         # cv2.waitKey(0) 
                         break
-            # cv2.imshow('image', image)
-            # cv2.waitKey(0) 
-                            
+        # cv2.imshow('image', image)
+        # cv2.waitKey(0) 
+                        
     print("precision_motor:", benchmark_data.class_arr[0].TP / (benchmark_data.class_arr[0].TP + benchmark_data.class_arr[0].FP))
     print("recall_motor:", benchmark_data.class_arr[0].TP/ benchmark_data.class_arr[0].count_gt)
                             
