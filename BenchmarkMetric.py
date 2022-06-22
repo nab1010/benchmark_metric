@@ -313,26 +313,27 @@ def cal_Precision(args):
                             # cv2.waitKey(0)        
                             break
                 else:
-                    # image = visual_bbox(image, pred_match, gt_match, "red")
+                    image = visual_bbox(image, pred_match, gt_match, "red")
                     for i in range (len(benchmark_data.class_arr)):
                         # print(classData)
                         if benchmark_data.class_arr[i].class_name == pred_match.box_class_name:
                             benchmark_data.class_arr[i].FP_up()
                             print("FP: ", benchmark_data.class_arr[i].FP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", best_iou)
-                            # cv2.imshow('image', image)
-                            # cv2.waitKey(0) 
                             break
                         
+                    cv2.imshow('image', image)
+                    cv2.waitKey(0) 
             else:
                 # image = visual_bbox(image, pred_match, gt_match, "red")
                 for i in range (len(benchmark_data.class_arr)):
                     # print(classData)
-                    if benchmark_data.class_arr[i].class_name == pred_match.box_class_name:
+                    if benchmark_data.class_arr[i].class_name == bbox_pred_obj.box_class_name:
                         benchmark_data.class_arr[i].FP_up()
                         print("FP: ", benchmark_data.class_arr[i].FP, "\t - class: ",benchmark_data.class_arr[i].class_name, "\t - iou: ", best_iou)
                         # cv2.imshow('image', image)
                         # cv2.waitKey(0) 
                         break
+                
         # cv2.imshow('image', image)
         # cv2.waitKey(0) 
                         
@@ -344,6 +345,9 @@ def cal_Precision(args):
                             
     print("precision_bus:", benchmark_data.class_arr[2].TP / (benchmark_data.class_arr[2].TP + benchmark_data.class_arr[2].FP))
     print("recall_bus:", benchmark_data.class_arr[2].TP/ benchmark_data.class_arr[2].count_gt)
+    
+    print("precision_truck:", benchmark_data.class_arr[3].TP / (benchmark_data.class_arr[3].TP + benchmark_data.class_arr[3].FP))
+    print("recall_truck:", benchmark_data.class_arr[3].TP/ benchmark_data.class_arr[3].count_gt)
                             
     # print("precision_truck:", benchmark_data.class_arr[3].TP / (benchmark_data.class_arr[3].TP + benchmark_data.class_arr[3].FP))
     # print("recall_truck:", benchmark_data.class_arr[3].TP/ benchmark_data.class_arr[3].count_gt)
