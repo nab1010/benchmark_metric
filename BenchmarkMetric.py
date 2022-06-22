@@ -349,8 +349,7 @@ def cal_Precision(args):
     print("precision_truck:", benchmark_data.class_arr[3].TP / (benchmark_data.class_arr[3].TP + benchmark_data.class_arr[3].FP))
     print("recall_truck:", benchmark_data.class_arr[3].TP/ benchmark_data.class_arr[3].count_gt)
                             
-    # print("precision_truck:", benchmark_data.class_arr[3].TP / (benchmark_data.class_arr[3].TP + benchmark_data.class_arr[3].FP))
-    # print("recall_truck:", benchmark_data.class_arr[3].TP/ benchmark_data.class_arr[3].count_gt)
+    
     # cv2.imshow('image', image)
         
 
